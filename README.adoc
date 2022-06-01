@@ -11,6 +11,16 @@ To support changes to the new documentation site, we are releasing a new documen
 
 == What this means to you:
 
+
+https://debaatobiee.wordpress.com/2021/09/11/azure-naming-standards-and-best-practice/
+
+https://cloudmonitor.ai/2021/10/azure-tagging-strategies/
+
+https://github.com/uglide/azure-content/blob/master/articles/guidance/guidance-naming-conventions.md
+
+https://tighetec.co.uk/2020/07/07/azure-naming-convention-and-tagging/
+
+
 The current documentation GitHub repository (mulesoft/mulesoft-docs) will be split into multiple repositories. Starting September 20, 2018, we will no longer accept any changes to the mulesoft/mulesoft-docs repository.
 
 === New Repositories
