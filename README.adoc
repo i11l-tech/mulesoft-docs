@@ -1,3 +1,13 @@
+= Azure doc
+Azure resource names can't be renamed hence name it correctly when creating.
+Able to search and browse for azure resources. 
+Descriptive enough to know what the resource is in the context of the infrastructure.
+Indicates the role and ownership of a resource.
+Promote consistency within an infrastructure.
+Allows to sort and filter resources quickly.
+
+<deptment>-<env>-<service short name>-rg , upto 90 chars
+
 = MuleSoft Documentation Repository
 :experimental:
 ifdef::env-github[]
