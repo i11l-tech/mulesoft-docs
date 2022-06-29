@@ -8,6 +8,7 @@ Promote consistency within an infrastructure.
 Allows to sort and filter resources quickly.
 
 <deptment>-<env>-<service short name>-rg , upto 90 chars
+https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/resource-name-rules
 
 = MuleSoft Documentation Repository
 :experimental:
