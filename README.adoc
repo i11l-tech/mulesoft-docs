@@ -1,4 +1,5 @@
 = Azure doc
+
 Azure resource names can't be renamed hence name it correctly when creating.
 Able to search and browse for azure resources. 
 Descriptive enough to know what the resource is in the context of the infrastructure.
