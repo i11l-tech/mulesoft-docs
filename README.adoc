@@ -1,5 +1,22 @@
 = Azure doc
 
+https://docs.microsoft.com/en-us/azure/devops/organizations/settings/naming-restrictions?view=azure-devops
+
+https://www.clouddirect.net/knowledge-base/KB0011467/azure-file-naming-and-referencing-restrictions
+
+https://docs.microsoft.com/en-us/rest/api/storageservices/naming-and-referencing-shares--directories--files--and-metadata
+
+https://www.drware.com/azure-policy-whats-the-length-of-policy-assignments-name/
+https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/resource-name-rules#microsoftauthorization
+
+https://docs.microsoft.com/en-us/azure/governance/policy/concepts/definition-structure
+https://docs.microsoft.com/en-us/azure/governance/policy/concepts/policy-as-code
+https://docs.microsoft.com/en-us/azure/governance/policy/overview
+
+Directory: Title case
+File name: <dir>_<description>_<conditionals(optional)>
+
+
 Azure resource names can't be renamed hence name it correctly when creating.
 Able to search and browse for azure resources. 
 Descriptive enough to know what the resource is in the context of the infrastructure.
