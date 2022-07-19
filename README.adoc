@@ -1,7 +1,11 @@
 = Azure doc
+
+
+1
 Tenant Summary attributes:
 "Scope","Scope Id","Policy DisplayName","PolicyId","Category","Policy Effect","Role definitions","Unique assignments","Used in PolicySets","CreatedOn","CreatedBy","UpdatedOn","UpdatedBy"
 
+2
 Definition Insights filters:
 Json, Builtin/Custom, Category, Deprecated, Preview, Scope, Scope Name/Id, Effect, hasAssignment, usedInPolicySet, Roles
 
