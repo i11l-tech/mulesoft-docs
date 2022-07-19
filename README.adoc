@@ -1,4 +1,14 @@
 = Azure doc
+Tenant Summary attributes:
+"Scope","Scope Id","Policy DisplayName","PolicyId","Category","Policy Effect","Role definitions","Unique assignments","Used in PolicySets","CreatedOn","CreatedBy","UpdatedOn","UpdatedBy"
+
+Definition Insights filters:
+Json, Builtin/Custom, Category, Deprecated, Preview, Scope, Scope Name/Id, Effect, hasAssignment, usedInPolicySet, Roles
+
+ScopeInsights
+"Inheritance","ScopeExcluded","PolicySet DisplayName","PolicySetId","Type","Category","Parameters","Enforcement","NonCompliance Message","Policies NonCmplnt","Policies Compliant","Resources NonCmplnt","Resources Compliant","Resources Conflicting","Role/Assignment","Managed Identity","Assignment DisplayName","AssignmentId","AssignedBy","CreatedOn","CreatedBy","UpdatedOn","UpdatedBy"
+
+
 
 https://docs.microsoft.com/en-us/azure/devops/organizations/settings/naming-restrictions?view=azure-devops
 
@@ -16,28 +26,7 @@ https://docs.microsoft.com/en-us/azure/governance/policy/overview
 Directory: Title case
 File name: <dir>_<description>_<conditionals(optional)>
 
-Tenant Summary
-PolicyId/Policy DisplayName
-Scope/Scope Id
-CreatedOn
-UpdatedOn
-Category
 
-Definition Insights
-Definition
-Scope/Scope Id
-Preview
-Deprecated
-
-Scope Insights
-PolicyId/Policy DisplayName
-Type
-Parameters
-ScopeExcluded
-Enforcement 
-CreatedOn
-UpdatedOn
-Category
 
 
 Azure resource names can't be renamed hence name it correctly when creating.
