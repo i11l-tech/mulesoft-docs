@@ -1,18 +1,11 @@
 = Azure doc
 
 
-1
-Tenant Summary attributes:
-"Scope","Scope Id","Policy DisplayName","PolicyId","Category","Policy Effect","Role definitions","Unique assignments","Used in PolicySets","CreatedOn","CreatedBy","UpdatedOn","UpdatedBy"
+https://learn.microsoft.com/en-us/azure/developer/terraform/deploy-application-gateway-v2
 
-2
-Definition Insights filters:
-Json, Builtin/Custom, Category, Deprecated, Preview, Scope, Scope Name/Id, Effect, hasAssignment, usedInPolicySet, Roles
-
-ScopeInsights
-"Inheritance","ScopeExcluded","PolicySet DisplayName","PolicySetId","Type","Category","Parameters","Enforcement","NonCompliance Message","Policies NonCmplnt","Policies Compliant","Resources NonCmplnt","Resources Compliant","Resources Conflicting","Role/Assignment","Managed Identity","Assignment DisplayName","AssignmentId","AssignedBy","CreatedOn","CreatedBy","UpdatedOn","UpdatedBy"
-
-
+https://www.jeanpaulsmit.com/2020/03/terraform-deploy-apim/
+https://rakesh-suryawanshi.medium.com/deploying-api-management-with-terraform-5a755f7434df
+https://github.com/claranet/terraform-azurerm-api-management
 
 https://docs.microsoft.com/en-us/azure/devops/organizations/settings/naming-restrictions?view=azure-devops
 
