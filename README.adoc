@@ -1,5 +1,31 @@
 = Azure doc
 
+azurerm_resource_group
+
+azurerm_subnet
+
+
+azurerm_network_security_group
+
+azurerm_api_management
+
+azurerm_application_gateway
+
+azurerm_public_ip
+
+azurerm_virtual_network
+
+azurerm_private_dns_zone
+
+azurerm_storage_account
+
+azurerm_storage_container
+
+azurerm_user_assigned_identity
+
+azurerm_cognitive_account
+
+
 
 https://learn.microsoft.com/en-us/azure/developer/terraform/deploy-application-gateway-v2
 
