@@ -1,29 +1,31 @@
 = Azure doc
 
-azurerm_resource_group
-
-azurerm_subnet
 
 
-azurerm_network_security_group
 
-azurerm_api_management
+https://www.linkedin.com/pulse/terraform-azure-api-management-c%C6%B0%C6%A1ng-v%C5%A9/
 
-azurerm_application_gateway
+https://rakesh-suryawanshi.medium.com/deploying-api-management-with-terraform-5a755f7434df
 
-azurerm_public_ip
 
-azurerm_virtual_network
+//Below sample created some api's in apim
 
-azurerm_private_dns_zone
+resource "azurerm_api_management_api" "example" {
+  name                = "example-apiajmt"
+  resource_group_name = var.resource_group_name
+  api_management_name = var.apim_name
+  revision            = "1"
+  display_name        = "ajtest API"
+  path                = "example"
+  protocols           = ["https"]
 
-azurerm_storage_account
+  
 
-azurerm_storage_container
-
-azurerm_user_assigned_identity
-
-azurerm_cognitive_account
+  import {
+    content_format = "swagger-link-json"
+    content_value  = "http://conferenceapi.azurewebsites.net/?format=json"
+  }
+}
 
 
 
