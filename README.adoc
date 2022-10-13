@@ -1,6 +1,8 @@
 = Azure doc
 
 
+https://learn.microsoft.com/en-us/azure/event-hubs/event-hubs-java-get-started-send
+
 
 
 https://www.linkedin.com/pulse/terraform-azure-api-management-c%C6%B0%C6%A1ng-v%C5%A9/
