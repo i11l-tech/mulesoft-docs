@@ -2,11 +2,17 @@
 
 
 resource "azurerm_log_analytics_solution" "solutions" {
+
   solution_name         = "SecurityInsights"
+  
   location              = "East US"
+  
   resource_group_name   = "rg-llm-poc-pae-eastus-v2"
+  
   workspace_resource_id = azurerm_log_analytics_workspace.law.id
+  
   workspace_name        = azurerm_log_analytics_workspace.law.name
+  
   
 https://learn.microsoft.com/en-us/azure/event-hubs/event-hubs-java-get-started-send
 
