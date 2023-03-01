@@ -1,48 +1,18 @@
 = Azure doc
 
+azure api developer portal publish blocked by subnet
 
-resource "azurerm_log_analytics_solution" "solutions" {
+https://srigunnala.com/apim-internalmode/
 
-  solution_name         = "SecurityInsights"
-  
-  location              = "East US"
-  
-  resource_group_name   = "rg-llm-poc-pae-eastus-v2"
-  
-  workspace_resource_id = azurerm_log_analytics_workspace.law.id
-  
-  workspace_name        = azurerm_log_analytics_workspace.law.name
-  
-  
-https://learn.microsoft.com/en-us/azure/event-hubs/event-hubs-java-get-started-send
+https://social.msdn.microsoft.com/Forums/en-US/a9e533b6-dec5-418d-bc5a-2dc58fc51a78/api-management-internal-vnet-developer-portal-not-available?forum=azureapimgmt
+
+https://learn.microsoft.com/en-us/azure/api-management/api-management-howto-integrate-internal-vnet-appgateway
+
+https://learn.microsoft.com/en-us/azure/api-management/api-management-using-with-internal-vnet?tabs=stv2
 
 
 
-https://www.linkedin.com/pulse/terraform-azure-api-management-c%C6%B0%C6%A1ng-v%C5%A9/
-
-https://rakesh-suryawanshi.medium.com/deploying-api-management-with-terraform-5a755f7434df
-
-
-//Below sample created some api's in apim
-
-resource "azurerm_api_management_api" "example" {
-  name                = "example-apiajmt"
-  resource_group_name = var.resource_group_name
-  api_management_name = var.apim_name
-  revision            = "1"
-  display_name        = "ajtest API"
-  path                = "example"
-  protocols           = ["https"]
-
-  
-
-  import {
-    content_format = "swagger-link-json"
-    content_value  = "http://conferenceapi.azurewebsites.net/?format=json"
-  }
-}
-
-
+----
 
 https://learn.microsoft.com/en-us/azure/developer/terraform/deploy-application-gateway-v2
 
