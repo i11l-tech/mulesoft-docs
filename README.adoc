@@ -1,5 +1,35 @@
 = Azure doc
 
+
+https://www.rupeshtiwari.com/azure-monitoring-basics/
+
+    Visualize the data using Dashboards and Workbooks
+    Analyze the data using Metrics Explorer and Log Analytics
+    Respond Azure Monitor can pro-actively alert you when a metric value or the result of the log query indicate a problem or based on custom conditions and it can take some automated actions like sending email or running some azure functions or Logic Apps. If metric values indicate load is increasing in VMs or any resource then you can use [AutoScale](https://docs.microsoft.com/en-us/azure/azure-monitor/autoscale/autoscale-overview) feature to automatically add or remove compute resources.
+
+    Insights Application Insight identifies exceptions thorough all of the components of your applications. Insights are available for Container, VM, Network, Storage and Additional Solutions.
+
+
+
+
+https://github.com/Azure-Samples/openai-python-enterprise-logging
+
+https://learn.microsoft.com/en-us/azure/cognitive-services/openai/overview
+
+https://learn.microsoft.com/en-us/azure/cognitive-services/openai/how-to/monitoring
+
+https://learn.microsoft.com/en-us/azure/azure-monitor/logs/data-platform-logs
+
+https://journeyofthegeek.com/tag/azure-openai-service/
+
+https://journeyofthegeek.com/2023/04/13/logging-in-azure-openai-service/
+
+https://learn.microsoft.com/en-us/azure/azure-monitor/app/live-stream?tabs=dotnet6
+
+https://learn.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview?tabs=net
+
+-----
+
 azure api developer portal publish blocked by subnet
 
 https://srigunnala.com/apim-internalmode/
