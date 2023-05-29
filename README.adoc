@@ -3,6 +3,8 @@
 
 https://www.rupeshtiwari.com/azure-monitoring-basics/
 
+https://lists.ammagroups.org/ics.php
+
     Visualize the data using Dashboards and Workbooks
     Analyze the data using Metrics Explorer and Log Analytics
     Respond Azure Monitor can pro-actively alert you when a metric value or the result of the log query indicate a problem or based on custom conditions and it can take some automated actions like sending email or running some azure functions or Logic Apps. If metric values indicate load is increasing in VMs or any resource then you can use [AutoScale](https://docs.microsoft.com/en-us/azure/azure-monitor/autoscale/autoscale-overview) feature to automatically add or remove compute resources.
