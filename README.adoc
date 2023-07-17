@@ -12,6 +12,7 @@ https://lists.ammagroups.org/ics.php
     Insights Application Insight identifies exceptions thorough all of the components of your applications. Insights are available for Container, VM, Network, Storage and Additional Solutions.
 
 
+https://cloud.google.com/blog/topics/cost-management/principles-of-cloud-cost-optimization
 
 
 https://github.com/Azure-Samples/openai-python-enterprise-logging
