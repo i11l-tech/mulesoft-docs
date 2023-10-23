@@ -1,9 +1,30 @@
 = Azure doc
 
 
-https://www.rupeshtiwari.com/azure-monitoring-basics/
 
-https://lists.ammagroups.org/ics.php
+She is a highly valued member of our team who consistently delivers tasks that align with the clients objectives. She possess a keen understanding of the big picture, and is always able to identify 
+opportunities to leverage her skills and expertise to achieve our goals.
+She is a driven and results-oriented individual, always willing to go the extra mile to ensure that work is of the highest quality. She is adept at managing time effectively and meeting deadlines.
+
+She is always looking for new and better ways to do things, her ideas have led to significant improvements over the initial design of the dashboards.
+She is a true asset to our team. 
+
+
+I am impressed with her ability to identify and deliver appropriate solutions that address the needs of our client.
+She has a keen eye for detail and a deep understanding of the business challenges that our clients face. 
+She is able to quickly grasp complex issues and identify the root cause of problems. Once she has a clear understanding of the requirement, she is able to develop creative 
+and effective solutions that meet the specific needs of our client.
+She is also a skilled communicator. She is able to clearly explain the solutions to both technical and non-technical audiences. 
+She is also adept at building relationships with client and gaining their trust. As a result, we are able to successfully implement the solutions and achieve positive outcomes for our client.
+
+
+She is always willing to go the extra mile to get the job done. She is also a team player and is always willing to help others.
+I highly recommend her for any position that requires a skilled problem solver and a strong communicator. 
+She is a valuable asset to any team and sure to make a positive contribution to any project.
+
+
+I am confident that she will continue to be a valuable asset to our firm and to our clients.
+
 
     Visualize the data using Dashboards and Workbooks
     Analyze the data using Metrics Explorer and Log Analytics
