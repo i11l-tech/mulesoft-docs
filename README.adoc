@@ -1,5 +1,32 @@
 = Azure doc
 
+import json
+
+def filter_names_by_prefix(filename, prefix="ap"):
+  """
+  Parses a JSON file and returns a list of records where the "name" field starts with the given prefix.
+
+  Args:
+      filename (str): Path to the JSON file.
+      prefix (str, optional): The prefix to filter names by. Defaults to "ap".
+
+  Returns:
+      list: A list of dictionaries containing the filtered records.
+  """
+
+  with open(filename, 'r') as f:
+    data = json.load(f)
+
+  filtered_records = [record for record in data if record["name"].startswith(prefix)]
+  return filtered_records
+
+if __name__ == "__main__":
+  filename = "your_json_file.json"  # Replace with your actual filename
+  filtered_data = filter_names_by_prefix(filename)
+  print("Records with names starting with 'ap':")
+  print(filtered_data)
+
+
 https://techcommunity.microsoft.com/t5/ai-azure-ai-services-blog/azure-openai-service-announces-assistants-api-new-models-for/ba-p/4049940
 
 
