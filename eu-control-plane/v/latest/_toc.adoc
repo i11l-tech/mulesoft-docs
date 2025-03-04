@@ -13,7 +13,7 @@ Steps to Create a New Product in APIM using REST API
 Authentication
 
 ~~~~~~~~~~~~
-1. Create a New Product
+= 1. Create a New Product
 To create a new product in Azure API Management, you would use the Create a product operation.
 
 API Endpoint:
@@ -39,7 +39,8 @@ terms: Terms and conditions (if applicable).
 subscriptionRequired: Boolean indicating if a subscription is required to access the product.
 approvalRequired: Boolean indicating whether approval is required for subscription to the product.
 state: The product state, such as published or draft.
-2. Update Product Details (Mapping Updates)
+
+= 2. Update Product Details (Mapping Updates)
 To update a product's details, you would use the Update a product operation.
 
 API Endpoint:
@@ -62,7 +63,7 @@ Here, you can update any of the fields that you want to change, such as the disp
 
 
 ~~~~~~~~~~~
-Before interacting with the Azure REST APIs, you need to authenticate. Azure supports authentication via Azure Active Directory (AAD), and you will typically use a Service Principal to authenticate using OAuth 2.0.
+= Before interacting with the Azure REST APIs, you need to authenticate. Azure supports authentication via Azure Active Directory (AAD), and you will typically use a Service Principal to authenticate using OAuth 2.0.
 Obtain an access token via the Azure Identity SDK or any OAuth 2.0 flow.
 APIM REST API Endpoint to Create a Product
 
@@ -115,28 +116,33 @@ curl -X PUT \
       "apiProducts": ["api1", "api2"]
     }
   }'
-Additional REST APIs You Might Use
+
+= Additional REST APIs You Might Use
 Here are some other APIs that could be helpful in working with APIM products:
 
+=
 List Products
 
 Endpoint:
 bash
 Copy
 GET https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{apimServiceName}/products?api-version={apiVersion}
-Get a Product
+
+= Get a Product
 
 Endpoint:
 bash
 Copy
 GET https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{apimServiceName}/products/{productId}?api-version={apiVersion}
-Delete a Product
+
+= Delete a Product
 
 Endpoint:
 bash
 Copy
 DELETE https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{apimServiceName}/products/{productId}?api-version={apiVersion}
-List APIs in a Product
+
+= List APIs in a Product
 
 Endpoint:
 bash
