@@ -1,9 +1,152 @@
-// TOC
+-----------
 
-* link:/eu-control-plane/[EU Control Plane]
-** link:/eu-control-plane/platform-access-eu[To Access the EU Control Plane]
-** link:/eu-control-plane/app-deploy-eu[To Deploy an Application (EU Control Plane)]
-** link:/eu-control-plane/servers-create-eu[To Create a Server (EU Control Plane)]
-** link:/eu-control-plane/runtime-configure-eu[To Configure the API Gateway to Connect to the EU Control Plane]
-** link:/eu-control-plane/studio-platform-access-eu[To Access the EU Control Plane (Anypoint Studio)]
-** link:/eu-control-plane/object-store-eu[About Object Store in the EU Control Plane]
+
+-----------
+how and what rest api's to use for creation of new products in apim
+
+To create new products in Azure API Management (APIM), you can interact with the Azure API Management REST API. This allows you to programmatically create, configure, and manage API products, policies, subscriptions, and other APIM resources.
+
+Key REST API for Creating New Products in APIM
+The APIM REST API is the key to creating and managing products. Specifically, you will use the Create or Update a Product API to create a new product or update an existing one.
+
+Steps to Create a New Product in APIM using REST API
+Authentication
+
+~~~~~~~~~~~~
+1. Create a New Product
+To create a new product in Azure API Management, you would use the Create a product operation.
+
+API Endpoint:
+pgsql
+Copy
+POST https://<your-apim-name>.azure-api.net/subscriptions/{subscription-id}/products?api-version=2021-08-01
+Request Body Example (for creating a product):
+json
+Copy
+{
+  "displayName": "New Product",
+  "description": "This is a new product for managing APIs",
+  "terms": "Terms and conditions for using this product",
+  "subscriptionRequired": true,
+  "approvalRequired": false,
+  "state": "published"
+}
+Important Fields:
+
+displayName: The name of the product displayed to users.
+description: A brief description of the product.
+terms: Terms and conditions (if applicable).
+subscriptionRequired: Boolean indicating if a subscription is required to access the product.
+approvalRequired: Boolean indicating whether approval is required for subscription to the product.
+state: The product state, such as published or draft.
+2. Update Product Details (Mapping Updates)
+To update a product's details, you would use the Update a product operation.
+
+API Endpoint:
+pgsql
+Copy
+PUT https://<your-apim-name>.azure-api.net/subscriptions/{subscription-id}/products/{product-id}?api-version=2021-08-01
+Request Body Example (for updating a product):
+json
+Copy
+{
+  "displayName": "Updated Product Name",
+  "description": "Updated description for the product",
+  "terms": "Updated terms and conditions",
+  "subscriptionRequired": false,
+  "approvalRequired": true,
+  "state": "published"
+}
+Here, you can update any of the fields that you want to change, such as the displayName, description, terms, subscriptionRequired, etc.
+
+
+
+~~~~~~~~~~~
+Before interacting with the Azure REST APIs, you need to authenticate. Azure supports authentication via Azure Active Directory (AAD), and you will typically use a Service Principal to authenticate using OAuth 2.0.
+Obtain an access token via the Azure Identity SDK or any OAuth 2.0 flow.
+APIM REST API Endpoint to Create a Product
+
+HTTP Method: PUT
+Endpoint:
+bash
+Copy
+https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{apimServiceName}/products/{productId}?api-version={apiVersion}
+Parameters:
+subscriptionId: Your Azure subscription ID.
+resourceGroupName: The name of the resource group containing the APIM instance.
+apimServiceName: The name of your APIM instance.
+productId: The unique identifier for the product (can be any string, e.g., new-product-id).
+api-version: The API version you are using (e.g., 2021-08-01).
+Request Body In the body of your request, you will need to include the JSON data for the new product.
+
+Example JSON body for creating a new product:
+
+json
+Copy
+{
+  "properties": {
+    "displayName": "New Product",
+    "description": "This is a description of the new product",
+    "terms": "Product Terms and Conditions",
+    "subscriptionRequired": false,
+    "approvalRequired": false,
+    "state": "published",  // can be 'draft', 'published', or 'archived'
+    "features": ["feature1", "feature2"],
+    "apiProducts": ["api1", "api2"]  // List of APIs linked to this product
+  }
+}
+API Call Example Here’s how you would make a cURL request to create a product in APIM:
+
+bash
+Copy
+curl -X PUT \
+  https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{apimServiceName}/products/{productId}?api-version=2021-08-01 \
+  -H 'Authorization: Bearer {access_token}' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "properties": {
+      "displayName": "New Product",
+      "description": "This is a description of the new product",
+      "terms": "Product Terms and Conditions",
+      "subscriptionRequired": false,
+      "approvalRequired": false,
+      "state": "published",
+      "features": ["feature1", "feature2"],
+      "apiProducts": ["api1", "api2"]
+    }
+  }'
+Additional REST APIs You Might Use
+Here are some other APIs that could be helpful in working with APIM products:
+
+List Products
+
+Endpoint:
+bash
+Copy
+GET https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{apimServiceName}/products?api-version={apiVersion}
+Get a Product
+
+Endpoint:
+bash
+Copy
+GET https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{apimServiceName}/products/{productId}?api-version={apiVersion}
+Delete a Product
+
+Endpoint:
+bash
+Copy
+DELETE https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{apimServiceName}/products/{productId}?api-version={apiVersion}
+List APIs in a Product
+
+Endpoint:
+bash
+Copy
+GET https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{apimServiceName}/products/{productId}/apis?api-version={apiVersion}
+Prerequisites
+Azure Subscription: Ensure you have an active Azure subscription and an APIM instance.
+Access Token: You need a valid Azure Active Directory (AAD) access token.
+Permissions: Ensure you have sufficient permissions to manage APIM (such as API Management Service Contributor).
+Conclusion
+By using the APIM REST API with the correct endpoint and request body, you can programmatically create and manage products in Azure API Management. Make sure to handle authentication correctly and follow the appropriate API versioning for your environment.
+
+------------
