@@ -1,12 +1,116 @@
-= About Object Store in the EU Control Plane
+how and what rest api's to use for remove assignment of usecase in apim
 
-The EU control plane uses Object Store V2. Mule applications that you create in the EU control plane use this version of Object Store by default. You do not have to modify any configuration in the platform or your application to use this version.
+= In Azure API Management (APIM), if you want to remove an assigned use case (e.g., remove an API from a product, delete a policy, or unassign a user/group), you will typically use the Azure REST API.
 
-Object Store V1 is not supported in the EU control plane.
+= Possible Use Cases & API Endpoints
+Here are some common scenarios where you may need to remove an assignment:
 
-== See Also
+Use Case	REST API Endpoint	Method
 
-* link:/object-store/[Anypoint Object Store V2]
-* link:/object-store/osv2-guide[To Use Object Store v2]
-* link:/object-store/osv2-apis[REST API: Object Store v2]
-* link:/eu-control-plane/[EU Control Plane]
+=Remove an API from a product	DELETE https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/products/{productId}/apis/{apiId}?api-version=2022-08-01	DELETE
+
+=Delete an API policy	DELETE https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/apis/{apiId}/policies/policy?api-version=2022-08-01	DELETE
+
+=Remove a user from a group	DELETE https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/groups/{groupId}/users/{userId}?api-version=2022-08-01	DELETE
+
+=Unassign an API operation	DELETE https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/apis/{apiId}/operations/{operationId}?api-version=2022-08-01	DELETE
+
+=============
+
+how and what rest api's to use for decommission of usecase in apim
+
+Decommissioning a Use Case in Azure API Management (APIM) Using REST APIs
+To decommission a use case in APIM, you typically need to remove or disable related resources like APIs, products, subscriptions, policies, and users. Below are the relevant REST API calls to achieve this.
+
+Steps to Decommission a Use Case in APIM
+= 1. Disable API (Optional)
+Before deletion, you can disable an API to prevent usage. This can be done by updating the API with subscriptionRequired set to false.
+Endpoint:
+
+http
+Copy
+Edit
+PATCH https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/apis/{apiId}?api-version=2022-08-01
+Body:
+
+json
+Copy
+Edit
+{
+  "properties": {
+    "subscriptionRequired": false,
+    "isCurrent": false
+  }
+}
+
+= 2. Remove API from Products
+Each API is linked to a product. You need to remove the API from all assigned products. Endpoint:
+
+http
+Copy
+Edit
+DELETE https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/products/{productId}/apis/{apiId}?api-version=2022-08-01
+
+= 3. Delete API Policies (Optional)
+If your API has policies, remove them to ensure no traces of them remain.
+Endpoint:
+
+http
+Copy
+Edit
+DELETE https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/apis/{apiId}/policies/policy?api-version=2022-08-01
+
+= 4. Remove API Operations
+Each API has operations (endpoints). Delete them before removing the API itself.
+Endpoint:
+
+http
+Copy
+Edit
+DELETE https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/apis/{apiId}/operations/{operationId}?api-version=2022-08-01
+
+= 5. Remove API Subscriptions
+Users may have active subscriptions to an API. You should delete those before removing the API. Endpoint:
+
+http
+Copy
+Edit
+DELETE https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/subscriptions/{subscriptionId}?api-version=2022-08-01
+
+= 6. Delete the API
+Once all dependencies are removed, delete the API itself.
+Endpoint:
+
+http
+Copy
+Edit
+DELETE https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/apis/{apiId}?api-version=2022-08-01
+
+= 7. Remove Users from Groups (Optional)
+If the use case is user-specific, remove users from APIM groups. Endpoint:
+
+http
+Copy
+Edit
+DELETE https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/groups/{groupId}/users/{userId}?api-version=2022-08-01
+
+
+= Automation: Using cURL
+You can execute these requests using cURL. Here’s an example for deleting an API:
+
+sh
+Copy
+Edit
+curl -X DELETE "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/apis/{apiId}?api-version=2022-08-01" \
+-H "Authorization: Bearer <your-access-token>" \
+-H "Content-Type: application/json"
+
+
+= Final Verification
+Check Azure Portal under APIM > APIs to confirm the API is removed.
+Run a GET API request to verify the API is deleted:
+http
+Copy
+Edit
+GET https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/apis/{apiId}?api-version=2022-08-01
+If the API is successfully decommissioned, this request should return a 404 Not Found.
