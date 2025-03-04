@@ -1,10 +1,110 @@
-= About the EU Control Plane
+how to assign 'provision tru put' to model of product in apim using rest api
 
-MuleSoft hosts a version of the Anypoint Platform control plane entirely within the EU (Frankfurt or Dublin data centers). This enables you to deploy and manage your APIs, applications, and related data entirely within the European Union. This includes data and metadata about your MuleSoft implementation. The EU control plane ensures that all MuleSoft data is stored within the EU.
 
-In addition to the EU control plane, deployment targets for MuleSoft managed runtimes are also hosted in the EU data center. Having both the control and runtime planes entirely within the EU enables you to more effectively meet emerging regulatory requirements.
+In Azure API Management (APIM), "Provision Throughput" (PTU) is typically related to the rate-limiting and quota policies applied to a product or API, rather than a specific "model." If you're asking how to assign throughput or quota limits to an API or product, you would need to configure policies related to these settings (such as quota, rate-limit, or throughput), either on the API level or the product level.
 
-== See Also
+Here’s a step-by-step guide on how to assign throughput settings to an API or product using the APIM REST API:
+= 1. Set Up the Product Quota/Throughput Policy (if you're referring to the "quota" policy):
+You can define throughput or quota settings on a product or an API by setting a policy for rate limiting, quota, or throughput.
 
-* link:/release-notes/anypoint-eu-control-plane[Anypoint Platform - EU Control Plane, December 15 2017 Release Notes]
-* link:/eu-control-plane/platform-access-eu[To Access the EU Control Plane]
+a. Apply Quota/Throughput Policy to a Product or API:
+First, you need to apply the throughput (quota or rate-limiting) policy via the product or api level.
+
+Here’s how to define a quota policy via the APIM REST API:
+
+= 2. Get the Product ID:
+You first need to identify the product you want to apply throughput settings to.
+
+http
+Copy
+GET https://{apim-name}.azure-api.net/products?api-version=2021-08-01
+This request will give you the list of products in your APIM, and you can find the productId you wish to update.
+
+= 3. Define the Throughput (Quota) Policy:
+Once you have the productId, you can apply the throughput settings by updating the product’s policy. For example, to apply a quota policy, you can define the maximum number of calls a user can make in a certain time window.
+
+Example: Apply Quota policy to a Product
+http
+Copy
+PATCH https://{apim-name}.azure-api.net/policies?api-version=2021-08-01
+Content-Type: application/json
+Authorization: Bearer {token}
+
+{
+  "properties": {
+    "policyContent": "<inbound><rate-limit calls=\"1000\" renewal-period=\"3600\" /> </inbound>"
+  }
+}
+Example Quota Policy Explanation:
+calls="1000": Allows 1000 requests in a renewal period.
+renewal-period="3600": The time window (in seconds) for the quota to reset (here it’s 3600 seconds, or 1 hour).
+The <inbound> tag defines an inbound policy for the product/API.
+
+= 4. Apply Throughput (Rate Limit) Policy:
+Similarly, you can apply a rate-limit policy, which is more about controlling the rate of requests.
+
+Example: Apply Rate Limit policy:
+http
+Copy
+PATCH https://{apim-name}.azure-api.net/policies?api-version=2021-08-01
+Content-Type: application/json
+Authorization: Bearer {token}
+
+{
+  "properties": {
+    "policyContent": "<inbound><rate-limit calls=\"500\" renewal-period=\"60\" /> </inbound>"
+  }
+}
+calls="500": Limits to 500 requests per renewal period.
+renewal-period="60": A time window of 60 seconds.
+
+= 5. Assign the Policy to a Product or API:
+Once the policy content is set, assign the policy to your product or API using the PATCH or PUT API:
+
+Assign Policy to API or Product:
+For product-level policy:
+
+http
+Copy
+PATCH https://{apim-name}.azure-api.net/products/{productId}/policies?api-version=2021-08-01
+Content-Type: application/json
+Authorization: Bearer {token}
+
+{
+  "properties": {
+    "policyContent": "<inbound><rate-limit calls=\"1000\" renewal-period=\"3600\" /> </inbound>"
+  }
+}
+For API-level policy:
+
+http
+Copy
+PATCH https://{apim-name}.azure-api.net/apis/{apiId}/policies?api-version=2021-08-01
+Content-Type: application/json
+Authorization: Bearer {token}
+
+{
+  "properties": {
+    "policyContent": "<inbound><rate-limit calls=\"500\" renewal-period=\"60\" /> </inbound>"
+  }
+}
+
+= 6. Verify the Policy:
+After applying the policy, you can verify whether it has been successfully applied to the product or API by checking the product details.
+
+http
+Copy
+GET https://{apim-name}.azure-api.net/products/{productId}?api-version=2021-08-01
+
+= Recap:
+The concept of "Provision Throughput" (PTU) often refers to rate-limiting or quota policies in APIM.
+You can assign throughput by setting quota or rate-limit policies to a product or API.
+The PATCH or PUT method is used to apply these policies to your product or API.
+
+= Key Terms:
+Quota: The maximum number of calls allowed over a specific time period.
+Rate-limit: Controls the rate of requests that can be made within a time window.
+If you need further clarification or run into any issues, feel free to ask!
+
+
+
