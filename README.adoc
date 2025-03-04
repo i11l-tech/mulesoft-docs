@@ -1,5 +1,21 @@
 = Azure doc
 
+
+------------
+https://clemenssiebler.com/posts/sharing-azure-openai-provisioned-throughput-ptu-multiple-use-cases-api-management/
+https://learn.microsoft.com/en-us/rest/api/support/quota-payload
+https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/quota?tabs=rest#automate-deployment
+!!!
+https://github.com/Azure/aoai-apim
+https://github.com/microsoft/AzureOpenAI-with-APIM/blob/main/example_code/example.py
+https://github.com/Azure/azure-rest-api-specs/blob/main/specification/cognitiveservices/data-plane/AzureOpenAI/inference/stable/2024-10-21/inference.json
+https://github.com/microsoft/AzureOpenAI-with-APIM#tying-it-all-together
+https://techcommunity.microsoft.com/blog/appsonazureblog/calculating-chargebacks-for-business-unitsprojects-utilizing-a-shared-azure-open/3909202
+------------
+
+
+
+
 import json
 
 def filter_names_by_prefix(filename, prefix="ap"):
