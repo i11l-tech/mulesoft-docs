@@ -1,24 +1,74 @@
-= To Access the EU Control Plane
+how and what rest api’s to use for deletion of models  in apim
+ChatGPT said:
+In Azure API Management (APIM), the term "models" isn't explicitly defined as a distinct resource. However, if you're referring to APIs, products, or other components within APIM, here's how you can delete them using REST APIs:
 
-This topic describes how to access Anypoint Platform in the EU control plane.
+= 1. Deleting an API:
 
-[NOTE]
-Anypoint Platform account data is not shared between the US and EU control planes. Even if you have an account in the US control plane, you must create a new account in the EU control plane.
+To delete a specific API from your APIM instance, use the following REST API:
+
+bash
+Copy
+Edit
+
+DELETE https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/apis/{apiId}?api-version=2024-05-01
+Replace {subscriptionId}, {resourceGroupName}, {serviceName}, and {apiId} with your subscription ID, resource group name, APIM service name, and the ID of the API you wish to delete, respectively. 
+LEARN.MICROSOFT.COM
+
+= 2. Deleting a Product:
+
+To delete a product within your APIM instance, you can use the following REST API:
+
+bash
+Copy
+Edit
+
+DELETE https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/products/{productId}?api-version=2024-05-01
+Ensure you replace {subscriptionId}, {resourceGroupName}, {serviceName}, and {productId} with the appropriate values.
+
+= 3. Deleting a Group:
+
+To delete a specific group from your APIM service instance, utilize the following REST API:
+
+bash
+Copy
+Edit
+
+DELETE https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/groups/{groupId}?api-version=2022-08-01
+Substitute {subscriptionId}, {resourceGroupName}, {serviceName}, and {groupId} with your specific details. 
+LEARN.MICROSOFT.COM
+
+= 4. Deleting the APIM Service:
+
+If you're looking to delete the entire API Management service instance, the following REST API can be used:
+
+bash
+Copy
+Edit
+
+DELETE https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}?api-version=2024-05-01
+Again, ensure you replace {subscriptionId}, {resourceGroupName}, and {serviceName} with your specific details. 
+LEARN.MICROSOFT.COM
+
+Important Considerations:
+
+Authentication: All these REST API calls require proper authentication. Ensure you have the necessary permissions and that your requests are authenticated using Azure Active Directory tokens or other supported methods.
+
+Dependencies: Before deleting resources, be aware of any dependencies. For instance, deleting a product will remove all its subscriptions and associated subscription keys. When you recreate the product, you'll need to resubscribe users and distribute new subscription keys. 
+STACKOVERFLOW.COM
+
+Irreversibility: Deletion operations are irreversible. Ensure that you have backups or that the resources are no longer needed before proceeding.
+
+For more detailed information, refer to the official Microsoft documentation on the respective REST APIs.
+
+===
+https://learn.microsoft.com/en-us/rest/api/apimanagement/apis/delete?view=rest-apimanagement-2024-05-01&utm_source=chatgpt.com&tabs=HTTP
+
+https://learn.microsoft.com/en-us/rest/api/apimanagement/api-management-service/delete?view=rest-apimanagement-2024-05-01&utm_source=chatgpt.com&tabs=HTTP
+
+https://learn.microsoft.com/en-us/azure/api-management/api-management-howto-add-products?tabs=azure-portal&pivots=interactive
+
+https://learn.microsoft.com/en-us/azure/api-management/api-management-policies
+
+https://learn.microsoft.com/en-us/rest/api/azureml/model-versions/delete?view=rest-azureml-2024-10-01&tabs=HTTP
 
 
-. Go to the following URL:
-+
-----
-eu1.anypoint.mulesoft.com
-----
-
-. If you do not have an Anypoint Platform account in the EU control plane, click Sign Up.
-.. Enter your personal information. All fields are required.
-.. Choose a username.
-.. Choose a password, then click Create Account
-
-. Enter your username and password, then click Sign In.
-
-== See Also
-
-* link:/eu-control-plane/[EU Control Plane]
