@@ -17,3 +17,23 @@ This flag ensures that the server connects to Runtime Manager in the EU control 
 
 * link:/runtime-manager/servers-create[To Create a Server in Runtime Manager (Hybrid)]
 * link:/eu-control-plane/platform-access-eu[To Access the EU Control Plane]
+
+https://sgryt.com/posts/ocp-in-lambda/
+
+https://sgryt.com/posts/srp-in-lambda/
+
+https://sgryt.com/posts/monolithic-to-microservices-with-lambda/
+
+https://collin-smith.medium.com/improving-performance-of-aws-serverless-applications-with-cqrs-92a8a2a4b60e
+
+https://www.linkedin.com/pulse/top-microservices-patterns-explained-using-aws-swapnil-gholap/
+
+https://blowstack.com/cheat-sheets/aws-microservices-cheat-sheet-key-patterns-services-and-concepts.pdf
+
+https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/simplify-amazon-eks-multi-tenant-application-deployment-by-using-flux.html
+
+https://github.com/miyagis-forests/farmacy-food-kata/blob/main/architecture/aws-deployment-view.md
+
+https://oxyprogrammer.com/understanding-cqrs-and-event-sourcing-a-path-to-more-robust-distributed-systems
+
+https://sgryt.com/posts/serverless-transition-exploration-with-aws/
