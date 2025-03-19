@@ -1,27 +1,100 @@
-= Fork a Project in the RAML Editor
+= how and what rest api’s to use for paving new openai instance  in apim
 
-You can separate new iterations of a project from previous iterations by branching.
 
-== About this task
 
-A new branch is a fork of your project and cannot be merged back into the master branch. Anybody who has access to your project can also create branches.
+Setting up a new OpenAI instance in **Azure API Management (APIM)** requires integrating OpenAI's REST APIs into APIM to manage, secure, and monitor the API usage. Here’s a step-by-step approach:
 
-Even when there are forks of a project, when you open that project the editor opens it to the master branch. If you want to return to a fork that you were working in, you must select that fork.
+---
 
-You can publish any fork of an API specification to Anypoint Exchange.
+### **1. Prerequisites**
+- An **OpenAI API Key** (from [OpenAI](https://platform.openai.com/signup/) or **Azure OpenAI Service**)
+- An **Azure API Management (APIM) instance**
+- Proper permissions to configure APIM
 
-== Procedure
+---
 
-* To fork a project:
-+
-. Open the project.
-. Click “master” at the top of the code editor.
-. Type a name in the search field and type *Enter*.
-+
-*Result:* The code editor automatically switches to the new fork.
+### **2. Identify OpenAI REST APIs to Use**
+You'll need to integrate OpenAI’s APIs into APIM. Common OpenAI REST APIs include:
 
-* To work in a fork of a project:
-+
-. Open the project.
-. Click “master” at the top of the code editor.
-. Select the name of the fork that you want to work in.
+| **API** | **Endpoint** | **Use Case** |
+|---------|-------------|--------------|
+| **Chat Completions** | `https://api.openai.com/v1/chat/completions` | Interacting with GPT models |
+| **Completions** | `https://api.openai.com/v1/completions` | Generating text completions |
+| **Embeddings** | `https://api.openai.com/v1/embeddings` | Generating vector representations of text |
+| **Moderation** | `https://api.openai.com/v1/moderations` | Content moderation |
+| **Image Generation (DALL·E)** | `https://api.openai.com/v1/images/generations` | Generating images |
+| **Audio Transcription (Whisper)** | `https://api.openai.com/v1/audio/transcriptions` | Converting speech to text |
+
+If using **Azure OpenAI**, replace `api.openai.com` with `https://<your-resource-name>.openai.azure.com`.
+
+---
+
+### **3. Setting Up OpenAI API in APIM**
+#### **Step 1: Create a New API in APIM**
+1. Go to **Azure Portal** > **API Management (APIM)**.
+2. Navigate to **APIs** > **+ Add API** > **HTTP API**.
+3. Provide:
+   - **Name**: `OpenAI API`
+   - **Base URL**: `https://api.openai.com/v1/`
+   - **API URL Suffix**: `openai`
+   - **Scheme**: `HTTPS`
+4. Click **Create**.
+
+---
+
+#### **Step 2: Add Endpoints (Operations)**
+1. Click on the newly created **OpenAI API**.
+2. Go to **Design** > **+ Add Operation**.
+3. Add endpoints for OpenAI APIs like `chat/completions`, `completions`, etc.
+   - Example for **Chat Completions API**:
+     - **Display Name**: ChatGPT Completions
+     - **URL Path**: `/chat/completions`
+     - **Method**: `POST`
+     - **Request Parameters**: 
+       - `model` (e.g., `gpt-4`)
+       - `messages`
+       - `temperature`
+     - **Headers**:
+       - `Authorization: Bearer {API_KEY}`
+       - `Content-Type: application/json`
+4. Repeat for other endpoints.
+
+---
+
+#### **Step 3: Secure API with Subscription Keys**
+1. In **APIM**, go to the **OpenAI API**.
+2. Under **Settings**, enable **Subscription Required**.
+3. Under **Inbound Processing**, add a policy to inject the OpenAI API key automatically:
+   ```xml
+   <inbound>
+       <base />
+       <set-header name="Authorization" exists-action="override">
+           <value>Bearer {your_openai_api_key}</value>
+       </set-header>
+   </inbound>
+   ```
+4. Click **Save**.
+
+---
+
+#### **Step 4: Test & Deploy**
+1. In **APIM**, go to **Test** > **ChatGPT Completions**.
+2. Add a test payload:
+   ```json
+   {
+     "model": "gpt-4",
+     "messages": [{"role": "user", "content": "Hello, how are you?"}],
+     "temperature": 0.7
+   }
+   ```
+3. Click **Send** and verify the response.
+4. Publish the API and share the APIM-managed endpoint with consumers.
+
+---
+
+### **4. Monitoring & Rate Limits**
+- Use **APIM Rate Limiting** to prevent excessive usage.
+- Enable **Azure Monitor** for API logging.
+- Configure **APIM Analytics** for insights.
+
+Would you like help with a policy template or automation script? 🚀
