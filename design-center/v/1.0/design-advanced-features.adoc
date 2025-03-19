@@ -1,5 +1,104 @@
-= Advanced Features for Designing Mule Applications
+= how and what rest api's to use for remove assignment of usecase in apim
 
-* link:/design-center/v/1.0/to-create-and-populate-a-variable[About Creating Variables (Design Center)]
-* link:/design-center/v/1.0/flow-datatype-task[To Set Flow Data Types and Variables]
-* link:/design-center/v/1.0/change-target-output-transformation-design-center-task[To Change the Target Output of a Transformation]
+
+### **Decommissioning a Use Case in Azure API Management (APIM) Using REST APIs**  
+
+To **decommission a use case** in APIM, you typically need to **remove or disable related resources** like APIs, products, subscriptions, policies, and users. Below are the relevant REST API calls to achieve this.
+
+---
+
+## **Steps to Decommission a Use Case in APIM**
+### **1. Disable API (Optional)**
+Before deletion, you can disable an API to prevent usage. This can be done by updating the API with `subscriptionRequired` set to `false`.  
+**Endpoint:**
+```http
+PATCH https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/apis/{apiId}?api-version=2022-08-01
+```
+**Body:**
+```json
+{
+  "properties": {
+    "subscriptionRequired": false,
+    "isCurrent": false
+  }
+}
+```
+
+---
+
+### **2. Remove API from Products**
+Each API is linked to a **product**. You need to remove the API from all assigned products.
+**Endpoint:**
+```http
+DELETE https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/products/{productId}/apis/{apiId}?api-version=2022-08-01
+```
+
+---
+
+### **3. Delete API Policies (Optional)**
+If your API has policies, remove them to ensure no traces of them remain.  
+**Endpoint:**
+```http
+DELETE https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/apis/{apiId}/policies/policy?api-version=2022-08-01
+```
+
+---
+
+### **4. Remove API Operations**
+Each API has operations (endpoints). Delete them before removing the API itself.  
+**Endpoint:**
+```http
+DELETE https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/apis/{apiId}/operations/{operationId}?api-version=2022-08-01
+```
+
+---
+
+### **5. Remove API Subscriptions**
+Users may have active **subscriptions** to an API. You should delete those before removing the API.
+**Endpoint:**
+```http
+DELETE https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/subscriptions/{subscriptionId}?api-version=2022-08-01
+```
+
+---
+
+### **6. Delete the API**
+Once all dependencies are removed, delete the API itself.  
+**Endpoint:**
+```http
+DELETE https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/apis/{apiId}?api-version=2022-08-01
+```
+
+---
+
+### **7. Remove Users from Groups (Optional)**
+If the use case is user-specific, remove users from APIM groups.
+**Endpoint:**
+```http
+DELETE https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/groups/{groupId}/users/{userId}?api-version=2022-08-01
+```
+
+---
+
+## **Automation: Using cURL**
+You can execute these requests using `cURL`. Here’s an example for deleting an API:
+
+```sh
+curl -X DELETE "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/apis/{apiId}?api-version=2022-08-01" \
+-H "Authorization: Bearer <your-access-token>" \
+-H "Content-Type: application/json"
+```
+
+---
+
+## **Final Verification**
+- Check **Azure Portal** under APIM > APIs to confirm the API is removed.
+- Run a **GET API request** to verify the API is deleted:
+  ```http
+  GET https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/apis/{apiId}?api-version=2022-08-01
+  ```
+  If the API is successfully decommissioned, this request should return a **404 Not Found**.
+
+---
+
+Would you like a **PowerShell script** or **Terraform automation** for this? 🚀
