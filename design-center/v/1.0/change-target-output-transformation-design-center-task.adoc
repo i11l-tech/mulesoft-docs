@@ -1,47 +1,112 @@
-= To Change the Target Output of a Transformation (Design Center)
-:keywords:
+= how to assign 'provision tru put' to model of product in apim using rest api
 
-By default, the Transform component directs output to the payload of the Mule message object. You can change the target of the transformation to a variable or attribute if you use Transform instead of DataWeave through the Map control of a field you are editing.
+In Azure API Management (APIM), "Provision Throughput" (PTU) is typically related to the rate-limiting and quota policies applied to a product or API, rather than a specific "model." If you're asking how to assign throughput or quota limits to an API or product, you would need to configure policies related to these settings (such as `quota`, `rate-limit`, or `throughput`), either on the API level or the product level.
 
-This procedure changes the target output of a transformation to an attribute:
+### Here’s a step-by-step guide on how to assign throughput settings to an API or product using the APIM REST API:
 
-. In Transform, in Output Payload, in the default-selected payload, click Edit Transformation.
-+
-image::edit-transformation.png[height=152,width=263]
-. In Edit Transformation, select a type: Attributes, Payload, or Vars. For example, select Attributes, and Save.
-+
-In Output Attributes, the otherThing attribute and suggested type, number?, appears.
-+
-image::otherThing.png[height=146,width=333]
+### 1. **Set Up the Product Quota/Throughput Policy (if you're referring to the "quota" policy):**
+You can define throughput or quota settings on a product or an API by setting a policy for rate limiting, quota, or throughput.
 
-The output of the flow is now set to otherThing.
+#### **a. Apply Quota/Throughput Policy to a Product or API:**
+First, you need to apply the throughput (quota or rate-limiting) policy via the `product` or `api` level.
 
-This procedure changes the target output of a transformation to a variable. This procedure assumes you set up a custom data type of type string in JSON format.
+Here’s how to define a quota policy via the **APIM REST API**:
 
-. Click Edit Transformation again, and in Type, select Vars.
-. In Name, type a name for the variable, for example, *foo*, and Save.
-. In the middle of the output pane, click Set Data Type.
-. Select the custom string data type in JSON format that you set up earlier.
-. Select Script, and replace null with the following script:
-+
-----
-%dw 2.0
+### 2. **Get the Product ID:**
+You first need to identify the product you want to apply throughput settings to.
 
-output application/java
----
-"my script"
-----
-+
-. Select Mappings.
-. Select Output Vars - Foo > Edit Transformation.
-+
-image::output-vars.png[]
-+
-. In Type, select Payload, and Save.
-+
-The target output of the payload changes to "my script".
+```http
+GET https://{apim-name}.azure-api.net/products?api-version=2021-08-01
+```
+This request will give you the list of products in your APIM, and you can find the `productId` you wish to update.
 
+### 3. **Define the Throughput (Quota) Policy:**
+Once you have the `productId`, you can apply the throughput settings by updating the product’s policy. For example, to apply a **quota** policy, you can define the maximum number of calls a user can make in a certain time window.
 
-To remove the output attributes or variables:
+#### Example: Apply Quota policy to a Product
 
-In the Output pane, click image:trash.png[].
+```http
+PATCH https://{apim-name}.azure-api.net/policies?api-version=2021-08-01
+Content-Type: application/json
+Authorization: Bearer {token}
+
+{
+  "properties": {
+    "policyContent": "<inbound><rate-limit calls=\"1000\" renewal-period=\"3600\" /> </inbound>"
+  }
+}
+```
+
+#### Example Quota Policy Explanation:
+- **`calls="1000"`**: Allows 1000 requests in a renewal period.
+- **`renewal-period="3600"`**: The time window (in seconds) for the quota to reset (here it’s 3600 seconds, or 1 hour).
+- The `<inbound>` tag defines an inbound policy for the product/API.
+
+### 4. **Apply Throughput (Rate Limit) Policy:**
+Similarly, you can apply a **rate-limit** policy, which is more about controlling the rate of requests.
+
+#### Example: Apply Rate Limit policy:
+
+```http
+PATCH https://{apim-name}.azure-api.net/policies?api-version=2021-08-01
+Content-Type: application/json
+Authorization: Bearer {token}
+
+{
+  "properties": {
+    "policyContent": "<inbound><rate-limit calls=\"500\" renewal-period=\"60\" /> </inbound>"
+  }
+}
+```
+
+- **`calls="500"`**: Limits to 500 requests per renewal period.
+- **`renewal-period="60"`**: A time window of 60 seconds.
+
+### 5. **Assign the Policy to a Product or API:**
+Once the policy content is set, assign the policy to your **product** or **API** using the PATCH or PUT API:
+
+#### Assign Policy to API or Product:
+
+For product-level policy:
+```http
+PATCH https://{apim-name}.azure-api.net/products/{productId}/policies?api-version=2021-08-01
+Content-Type: application/json
+Authorization: Bearer {token}
+
+{
+  "properties": {
+    "policyContent": "<inbound><rate-limit calls=\"1000\" renewal-period=\"3600\" /> </inbound>"
+  }
+}
+```
+
+For API-level policy:
+```http
+PATCH https://{apim-name}.azure-api.net/apis/{apiId}/policies?api-version=2021-08-01
+Content-Type: application/json
+Authorization: Bearer {token}
+
+{
+  "properties": {
+    "policyContent": "<inbound><rate-limit calls=\"500\" renewal-period=\"60\" /> </inbound>"
+  }
+}
+```
+
+### 6. **Verify the Policy:**
+After applying the policy, you can verify whether it has been successfully applied to the product or API by checking the product details.
+
+```http
+GET https://{apim-name}.azure-api.net/products/{productId}?api-version=2021-08-01
+```
+
+### Recap:
+- The concept of "Provision Throughput" (PTU) often refers to **rate-limiting** or **quota** policies in APIM.
+- You can assign throughput by setting **quota** or **rate-limit** policies to a product or API.
+- The `PATCH` or `PUT` method is used to apply these policies to your product or API.
+
+### Key Terms:
+- **Quota**: The maximum number of calls allowed over a specific time period.
+- **Rate-limit**: Controls the rate of requests that can be made within a time window.
+
+If you need further clarification or run into any issues, feel free to ask!
