@@ -1,26 +1,94 @@
-= About Mule Flow Design (Design Center)
-:keywords:
-
-In Design Center, you create a Mule application in a project having one or more flows. A flow typically consists of one trigger and one or more connectors, components, or APIs.
-
-A flow performs operations specified by its components when triggered. For example:
-
-* An HTTP listener at the beginning of a flow gets an outside event, an incoming HTTP request, which starts the flow.
-* A Scheduler at the beginning of a flow starts the flow at a configured time or restarts the flow after an elapsed time.
-* A Flow Ref in one flow starts another flow by referencing its name. A flow needs a trigger unless started by a Flow Ref in another flow.
-
-Each component receives an input, carries out a specific function, and then transfers the output to the next part of the flow. The placement of components in a flow affects functionality.
-
-For a tutorial that will help you get started building Mule applications, see "To Create a Basic Mule Application", which is linked to from the *See also* section at the end of this topic.
+how and what rest api's to use for reassigning products in apim to subscription or usecase
 
 
-== See also
+In Azure API Management (APIM), to reassign products to subscriptions or use cases, you would typically interact with the Azure API Management REST API. Below are the steps and relevant APIs to achieve this.
 
-* link:/design-center/v/1.0/create-basic-app-task[To Create a Basic Mule Application (Design Center)]
-* link:/mule4-user-guide/v/4.1/about-components[About Mule Components]
-* link:/connectors/[Connectors and Modules (for Mule 4)]
-* link:/mule4-user-guide/v/4.1/mule-application-about[About Mule Applications]
-* link:/mule4-user-guide/v/4.1/about-mule-event[About Mule Events]
-* link:/mule4-user-guide/v/4.1/about-mule-message[About Mule Messages]
-* link:/mule4-user-guide/v/4.1/about-components[About Components]
-* link:/mule4-user-guide/v/4.1/about-flows[About Flows]
+### 1. **Reassign Products to Subscription**
+
+To reassign or associate a product with a subscription in APIM, you will use the `Add subscription to product` API. This will allow you to associate a product with a specific subscription.
+
+#### API:
+- **Endpoint**: `PUT /subscriptions/{subscriptionId}/products/{productId}`
+
+##### Description:
+This API allows you to associate a subscription with a product. The API call would be used to reassign the subscription to a product, or to include a new product for a specific subscription.
+
+- **Method**: PUT
+- **URL**: `https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{apiManagementName}/subscriptions/{subscriptionId}/products/{productId}?api-version={apiVersion}`
+
+##### Example Request:
+```http
+PUT https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{apiManagementName}/subscriptions/{subscriptionId}/products/{productId}?api-version=2021-08-01
+Authorization: Bearer {token}
+```
+
+#### Parameters:
+- `subscriptionId`: The unique identifier of the subscription you want to update.
+- `resourceGroupName`: The name of the Azure resource group containing the APIM instance.
+- `apiManagementName`: The name of your Azure API Management service.
+- `productId`: The unique identifier of the product you want to reassign to the subscription.
+- `api-version`: The API version to use, such as `2021-08-01`.
+
+#### Response:
+A successful call will return a status of 204 No Content, indicating the product has been reassigned to the subscription.
+
+### 2. **Reassign Products to Use Case (API Management Use Case)**
+
+If you need to assign products to different use cases or organize them based on use cases in APIM, the general process is similar to managing products themselves, as there's no explicit "use case" API in APIM. However, this can be handled through product categorization and associating products with different subscriptions, groups, or policies that represent a use case.
+
+You can define a **Product** and associate it with specific **API policies** that target specific use cases. You could also group users in **subscriptions** that represent use cases.
+
+#### Steps:
+1. **Create Products**: Define products that represent a use case.
+   - Use the `POST /products` API to create new products.
+2. **Assign Users/Subscriptions to Products**: Use the `PUT /subscriptions/{subscriptionId}/products/{productId}` API to associate products with subscriptions that represent a use case.
+3. **Apply Policies for Use Case**: Use API policies to apply specific rules for these products.
+
+#### Create Product API:
+- **Endpoint**: `POST /products`
+
+##### Example Request:
+```http
+POST https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{apiManagementName}/products?api-version=2021-08-01
+Content-Type: application/json
+Authorization: Bearer {token}
+
+{
+    "properties": {
+        "displayName": "My API Use Case Product",
+        "description": "This product represents a specific use case",
+        "isPublished": true
+    }
+}
+```
+
+### 3. **Listing Subscriptions Associated with a Product**
+
+If you want to see which subscriptions are associated with a particular product, you can use the `GET` method on the `/subscriptions/{subscriptionId}/products` endpoint.
+
+#### API:
+- **Endpoint**: `GET /subscriptions/{subscriptionId}/products`
+
+#### Example Request:
+```http
+GET https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{apiManagementName}/subscriptions/{subscriptionId}/products?api-version=2021-08-01
+Authorization: Bearer {token}
+```
+
+### 4. **Considerations**
+
+- Ensure you have appropriate permissions (like `Contributor` or `API Management Service Contributor`) to manage products and subscriptions.
+- The APIs above assume you are using the Azure REST API with an authentication token (Bearer token). You may need to authenticate using Azure Active Directory (AAD) OAuth2.
+- Make sure to handle rate limiting and API throttling when interacting with Azure APIs.
+
+#### Sample Flow:
+1. **Create a product** representing a use case (e.g., `Product for Case 1`).
+2. **Assign the product to relevant subscriptions** that are also linked to the use case.
+3. **Apply specific policies** (if needed) to manage access and behavior.
+
+### Additional Resources:
+
+- **Azure API Management REST API Documentation**: [Azure API Management REST API](https://learn.microsoft.com/en-us/rest/api/apimanagement/)
+- **Azure Authentication Documentation**: [Authenticate to the Azure REST API](https://learn.microsoft.com/en-us/azure/active-directory/develop/quickstart-v2-aspnet-core)
+
+Would you like additional guidance on setting up authentication or handling specific use case configurations?
