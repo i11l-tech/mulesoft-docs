@@ -1,1 +1,56 @@
-= Advanced Features
+= how to identify the available provision thru put of a usecase in apim
+
+
+
+In **Azure API Management (APIM)**, throughput refers to the number of requests that the system can handle within a given period. Identifying the available provisioned throughput of a **use case** in APIM involves considering multiple factors such as SKU, scaling, request limits, and performance testing. Here's how you can determine it:
+
+### 1. **Check the API Management SKU**
+   Azure APIM has different SKUs, each with specific throughput limits:
+   - **Consumption**: Event-driven, serverless; no fixed throughput.
+   - **Developer**: Not for production; lower throughput.
+   - **Basic**: Suitable for small-scale workloads.
+   - **Standard (S1, S2, S3)**: Moderate to high throughput with scaling.
+   - **Premium (P1, P2, P3, etc.)**: High-performance workloads with scaling.
+
+   👉 **Find SKU limits in Azure Docs:** [Azure API Management Pricing](https://azure.microsoft.com/en-us/pricing/details/api-management/)
+
+### 2. **Review the Requests Per Second (RPS) Limits**
+   - Each SKU has predefined limits on requests per second.
+   - For **Standard (S1)**, it's around **2,500 requests/sec per unit**.
+   - Premium SKUs allow **higher RPS and auto-scaling**.
+
+### 3. **Check Your Provisioned Capacity**
+   - Go to **Azure Portal** > **API Management Instance**.
+   - Check **Capacity and Scale Settings** under the **Overview** tab.
+   - If using **Autoscale**, review its impact on provisioned throughput.
+
+### 4. **Analyze APIM Metrics & Logs**
+   - In **Azure Monitor**, check:
+     - **Total Requests**
+     - **Requests Per Minute**
+     - **Backend Latency**
+     - **Rate-Limiting or Throttling Events**
+   - Use **Application Insights** to analyze request load and performance.
+
+### 5. **Conduct Performance Testing**
+   - Use **Azure Load Testing**, **JMeter**, or **k6** to simulate load.
+   - Test API endpoints with realistic traffic patterns.
+   - Measure actual throughput before hitting rate limits.
+
+### 6. **Check Policy Restrictions**
+   - Rate-limiting and quota policies in **APIM policies** can affect throughput.
+   - Review **inbound, backend, and outbound policies** in **policy.xml**.
+
+### 7. **Consider Network and Backend Dependencies**
+   - APIM’s throughput also depends on backend APIs, network latency, and external dependencies.
+   - Use **APIM Diagnostics** to check if the backend is the bottleneck.
+
+### **Conclusion**
+To **identify the available provisioned throughput**:
+✅ Review **APIM SKU limits**  
+✅ Check **scaling settings & unit allocation**  
+✅ Analyze **Azure Monitor metrics**  
+✅ Perform **load testing**  
+✅ Optimize **APIM policies & backend dependencies**  
+
+Would you like help with a specific throughput analysis scenario in APIM? 
