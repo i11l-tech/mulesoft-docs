@@ -1,33 +1,93 @@
-= Add an API Fragment to an API-Specification Project as a Dependency
-
-In projects for API specifications or API fragments, you can add API fragments as dependencies directly from Anypoint Exchange.
-
-== About this task
-
-The fragments are listed in your projects, but they are not present in your projects. Instead, the code editor references them from their online location in Anypoint Exchange. Therefore, although you can include them in your specifications and fragments, you cannot edit them.
-
-If you export your project, the resulting `.zip` file contains the referenced API fragments. Whenever someone downloads your project as RAML after it is published to Anypoint Exchange, the resulting `.zip` file again contains the referenced API fragments.
-
-If you export your project to work on it in another editor, edit the referenced API fragments, then try to import the project back into the code editor, the import will fail.
+= how and what rest api's to use for reservation of modal quota for a openai instance usecase in apim
 
 
-== Procedure
+To implement reservation of a modal quota for an OpenAI instance in a use case within API Management (APIM), you'd typically need to use a combination of APIs provided by OpenAI and the management features within your APIM platform. Below are the key steps and APIs you would typically use in this scenario:
 
-. On the left side of the editor, click the *Exchange dependencies* icon, which looks like this:
-+
-image::publish-to-exchange.png[title="Publish to Exchange icon",46,52,align="left"]
-. Click the plus sign that is at the top of the left pane.
-. Select the API fragments that you want to import. You can select from API fragments that are visible to the organizations that you belong to.
+### 1. **Understanding the Modal Quota Reservation**
+A modal quota refers to the number of requests or compute resources reserved or allocated for a specific use case or instance. For OpenAI, this might refer to reserving an allocation of tokens, compute usage, or processing capacity for your instance or API calls. APIM platforms like Azure API Management or Apigee could facilitate managing such reservations through their policy mechanisms and quota management features.
 
+### 2. **OpenAI API (for Managing Instances and Tokens)**
+OpenAI provides APIs that allow you to interact with the models. You'd need to use the following APIs for making calls and tracking usage:
 
-== Result
-The API fragments that you selected are listed in the left pane. You can view their contents by selecting them. When you are ready to continue work on your project, click the *Files* icon.
+#### a) **API Key Authentication**
+First, you'll need to authenticate using your OpenAI API key:
+- Endpoint: `https://api.openai.com/v1/engines/{engine_id}/completions`
+  - This is where you will send requests for generating model outputs.
 
-The files appear in the folder `exchange-modules`. Within this folder are subfolders that correspond to the parts of the URI for the referenced API fragment.
+#### b) **Usage and Quota Check**
+While OpenAI doesn’t have a direct API for "reserving" quotas, it provides usage tracking and monitoring:
+- **Endpoint to check usage** (e.g., tokens used):
+  - `GET /v1/usage`
+  - You can use this to track the quota utilization and adjust reservations accordingly.
 
-[NOTE]
-====
+However, OpenAI's API typically operates on a pay-as-you-go model, and quota or rate limits are handled by subscription tiers.
 
-If after you add a dependency on an API fragment an updated version of the fragement is published, and if you want your project to reference the updated version, you must update the dependency. To do so, click the *Exchange dependency* icon, click the dependency, and select *Change version*. In the *Change version* dialog, select the current version.
+### 3. **API Management (APIM) Quota Management**
+To implement quota management for OpenAI instances, you can use your APIM platform's quota policies to ensure usage limits are met.
 
-====
+For example, if you are using **Azure API Management (APIM)**, you can use the **quota policy** to limit the number of requests or total tokens consumed.
+
+#### Example in Azure API Management:
+- Use the **Quota policy** in your APIM:
+  ```xml
+  <inbound>
+      <quota calls="1000" interval="1" />
+  </inbound>
+  ```
+
+This limits the number of API calls to 1000 requests per interval. You can configure it to match the quota you are "reserving" for each instance.
+
+- For advanced cases like handling resource allocation, you could also integrate with Azure Logic Apps or Azure Functions for dynamic quota management based on usage, pulling usage data from OpenAI's usage API and making decisions on further reservations.
+
+### 4. **Custom API for Reservation Logic**
+If you want to implement a more complex quota reservation system, you might need to design a custom API layer on top of OpenAI's APIs and your APIM platform. Here's how you might structure it:
+
+- **Custom API Endpoints**:
+  - `POST /reserve-quota`: Accepts parameters like the number of tokens or compute hours and reserves the quota for a specific client or use case.
+  - `GET /check-reservation`: Checks if the reservation is still valid or how much quota is left.
+
+- **Backend Logic**: This could involve checking the OpenAI usage and ensuring that quotas are reserved correctly for a particular client or instance before API calls are made to OpenAI’s endpoints.
+
+- **Implementation using APIM**: 
+  - **Azure Logic Apps / Azure Functions** can be used for orchestration, checking usage, and making decisions on reservations.
+
+### 5. **Example Scenario in APIM**
+Imagine a scenario where you are managing the quota for multiple users accessing OpenAI’s GPT-4 model. You could implement the following:
+
+1. **Quota Enforcement**: 
+   Use APIM policies to enforce quotas for different users or API clients. For instance, you can use a combination of API keys and quota policies in APIM to ensure that each user can access OpenAI models only within their allocated quota.
+   - In Azure APIM, this would look like:
+     ```xml
+     <inbound>
+         <check-header name="Authorization" exists="true" />
+         <quota calls="5000" interval="1" counter-key="@(context.Subscription.Id)" />
+     </inbound>
+     ```
+
+2. **Monitor Usage**: 
+   Integrate the OpenAI usage endpoint (`GET /v1/usage`) into your system to monitor actual usage and compare it against reserved quotas. 
+
+3. **Scaling and Reservation Logic**: 
+   If usage is nearing the reserved limit, trigger notifications or auto-scaling actions through the APIM system, Azure Logic Apps, or Functions to allocate more quota, or inform users when their quota has been exhausted.
+
+### 6. **Error Handling & Notifications**
+- If a user exceeds their reserved quota, you can have an **API policy** or **webhook** that sends notifications to both the user and the system administrator.
+
+### 7. **Custom Reservation Logic Example**
+For implementing custom reservation logic, you could design a system where users request quota in advance:
+
+1. User calls `POST /reserve-quota` with the number of tokens or compute units they want to reserve.
+2. The system checks OpenAI's usage API to see if the request can be fulfilled and reserves the quota accordingly.
+3. When making requests to OpenAI, APIM checks the reservation and enforces the quota through custom logic.
+
+---
+
+### Summary of APIs and Tools to Use:
+- **OpenAI API** for making requests to models and tracking usage:
+  - `POST /v1/completions` for generating model outputs.
+  - `GET /v1/usage` for checking token or resource consumption.
+- **APIM Quota Policies** for rate limiting and usage control in your API Management platform.
+- **Custom APIs** for managing reservations, such as `POST /reserve-quota` or `GET /check-reservation`.
+- **Integration with Azure Logic Apps / Functions** for dynamic reservation and quota management.
+
+By combining these tools, you can implement a robust reservation system for your OpenAI instance usage in an API Management environment.
