@@ -1,29 +1,124 @@
-= About Data Types (Design Center)
+To create new products and map updates in **Azure API Management (APIM)**, you will need to interact with the **Azure API Management REST API**. This allows you to manage APIs, products, subscriptions, and other elements of your API Management service.
 
-To build an integration application, you need to know what data is available at which step of the process and how to access the data.
+### 1. **Create a New Product**
+To create a new product in **Azure API Management**, you would use the **`Create a product`** operation.
 
-* Is the data a string or an array item? 
-* Is the data within the structure of an object? 
-* Which parent elements do I need to reference to reach the data? 
+#### API Endpoint:
+```
+POST https://<your-apim-name>.azure-api.net/subscriptions/{subscription-id}/products?api-version=2021-08-01
+```
 
-In the early stage of development, you define data types to answer these questions. You include an example or schema of the expected data that the app uses. Some formats require a schema. Provide a schema for a CSV or Java format in a RAML file.
+#### Request Body Example (for creating a product):
+```json
+{
+  "displayName": "New Product",
+  "description": "This is a new product for managing APIs",
+  "terms": "Terms and conditions for using this product",
+  "subscriptionRequired": true,
+  "approvalRequired": false,
+  "state": "published"
+}
+```
 
-Defining data types helps you design the application in the following ways:
+**Important Fields:**
+- `displayName`: The name of the product displayed to users.
+- `description`: A brief description of the product.
+- `terms`: Terms and conditions (if applicable).
+- `subscriptionRequired`: Boolean indicating if a subscription is required to access the product.
+- `approvalRequired`: Boolean indicating whether approval is required for subscription to the product.
+- `state`: The product state, such as `published` or `draft`.
 
-* Provides auto-completion hints when writing expressions
-* Generates DataWeave code and a preview of transformation results when you map real or example input to output 
-* Reveals metadata for troubleshooting problems
+### 2. **Update Product Details (Mapping Updates)**
+To update a product's details, you would use the **`Update a product`** operation.
 
-Some designs, such as those using Salesforce, require no data type definitions. Salesforce objects have a well-defined structure that Design Center can easily reference.
+#### API Endpoint:
+```
+PUT https://<your-apim-name>.azure-api.net/subscriptions/{subscription-id}/products/{product-id}?api-version=2021-08-01
+```
 
-When you run the app, the flow starts executing when triggered. Real data appears in lieu of example data in the input and output. You can inspect payload, attributes, and vars (variables) at various stages of the flow. 
+#### Request Body Example (for updating a product):
+```json
+{
+  "displayName": "Updated Product Name",
+  "description": "Updated description for the product",
+  "terms": "Updated terms and conditions",
+  "subscriptionRequired": false,
+  "approvalRequired": true,
+  "state": "published"
+}
+```
 
-== Using RAML to Define Data
+Here, you can update any of the fields that you want to change, such as the `displayName`, `description`, `terms`, `subscriptionRequired`, etc.
 
-The HTTP Request Connector does not expose any information by default, but you can configure the connector using a RAML API specification, which includes information about required inputs and expected outputs.
+### 3. **Mapping Updates to APIs**
+To map an API to the product, you can use the **`Add API to product`** operation.
 
-== See Also
+#### API Endpoint:
+```
+POST https://<your-apim-name>.azure-api.net/subscriptions/{subscription-id}/products/{product-id}/apis?api-version=2021-08-01
+```
 
-* link:/design-center/v/1.0/design-filter-task[To Transform a Full Set of Data to a Subset]
+#### Request Body Example (for mapping an API to a product):
+```json
+{
+  "apiId": "<api-id>"
+}
+```
 
-* link:/design-center/v/1.0/flow-datatype-task[To Set Data Types for a Flow]
+Where:
+- `apiId`: The identifier of the API you want to associate with the product.
+
+### 4. **Manage Subscription to Products**
+If you need to create or manage subscriptions to a product, use the **`Create a subscription`** operation.
+
+#### API Endpoint:
+```
+POST https://<your-apim-name>.azure-api.net/subscriptions?api-version=2021-08-01
+```
+
+#### Request Body Example (for creating a subscription):
+```json
+{
+  "userId": "<user-id>",
+  "productId": "<product-id>",
+  "state": "active",
+  "displayName": "User Subscription to Product"
+}
+```
+
+Where:
+- `userId`: The user ID to associate the subscription with.
+- `productId`: The product ID the subscription is for.
+- `state`: The state of the subscription, e.g., `active` or `inactive`.
+- `displayName`: A friendly name for the subscription.
+
+### 5. **Example of Complete Process**
+To summarize, here's how the entire process might look in API calls:
+1. **Create a Product:**
+   - Endpoint: `POST /products`
+2. **Update Product Details (Mapping Updates):**
+   - Endpoint: `PUT /products/{product-id}`
+3. **Map APIs to Product:**
+   - Endpoint: `POST /products/{product-id}/apis`
+4. **Create Subscription to Product:**
+   - Endpoint: `POST /subscriptions`
+
+### Authentication
+To authenticate these requests, you need to use an **Azure Active Directory (AAD) token** or a **subscription key**. Typically, an AAD token is recommended, and you can obtain it by authenticating against Azure using OAuth 2.0.
+
+You can generate the **API Management service access token** from Azure Active Directory.
+
+### Example Using Azure CLI:
+To authenticate using Azure CLI:
+```bash
+az account get-access-token --resource https://management.azure.com
+```
+
+You can then use the token in the `Authorization` header for your API calls:
+```bash
+Authorization: Bearer <access-token>
+```
+
+### API Documentation Reference:
+For full details on these operations and additional parameters, you can refer to the official Azure API Management REST API documentation:
+- [API Management REST API documentation](https://learn.microsoft.com/en-us/rest/api/apimanagement/)
