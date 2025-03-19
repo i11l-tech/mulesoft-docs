@@ -1,67 +1,116 @@
-= To Create a Basic Mule Application (Design Center)
-
-This procedure shows you how to create, run, and start an app that consumes a REST service. You might want to access a web service, such as JSON Placeholder, to get information provided by the service. Creating a Mule app in Design Center to consume the service, you can access the information and do things with it. For example, you can filter the data to isolate email addresses and send email to users through the email connector. You can store the data from the service in a database and change, explore, and analyze the data using SQL. This procedure covers only the basics, not all these possibilities.
-
-. Create a project:
-.. Click Create image:plus-create.png[create button, height=25, width=64].
-.. Select Mule Application.
-.. In Project Name, enter the name of the project. In this case, name the project *myproject*.
-.. If prompted to select a Target Environment, select an environment, and click Create. Click Hide These Tips.
-+
-When you open a flow for the first time, Design Center gives you the option to select a Trigger, and a Target for the result of your flow. +
-You can click the "Go straight to canvas" option to create a flow from a blank canvas.
-+
-. Select HTTP Listener from the list of triggers. In HTTP Listener - Configuration, in General, enter the following value for the required path:
-+
-*/getpath*
-. In Advanced, in Allowed Methods, enter the following method name:
-+
-*GET*
-+
-By default, all methods are allowed. It's a best practice for security reasons to limit the methods.
-+
-By default, CloudHub HTTP listens on a CloudHub server for an event to start the app. CloudHub HTTP appears in Reusable Configurations.
-+
-. Click a blank spot on the canvas to close the trigger component.
-. Add another component, an HTTP Request:
-.. Click image:arrange-cards-flow-design-center-e256e.png[add HTTP], search for and select HTTP Request.
-.. In HTTP Request, click Edit.
-+
-image::change-http-request-config.png[change http request configuration]
-.. In HTTP Request Configuration, fill in the following fields:
-** Host: *jsonplaceholder.typicode.com*
-** Port: *80*
-** Accept the other defaults and save.
-+
-. In General, in Path, type the following path:
-+
-*/users*
-+
-. Click New Flow - image:reference-flow-task-design-center-b93f3.png[rename flow]
-+
-. Select Rename, and rename the flow to Consume API.
-+
-image::rename-flow.png[rename flow,height=112,width=316]
-+
-. Run the app and execute the flow:
-+
-.. Click Run.
-+
-.. After the app is running, click options image:run-app-design-env-design-center-2428b.png[].
-.. Select Copy Link.
-.. Paste the link in a browser or client, and type */getpath* at the end.
-+
-The HTTP Listener hears the request, and starts the app. The list of JSON Placeholder users appears in the browser.
-.. In Design Center, click an empty area of the canvas to close the HTTP Request component.
-+
-Green status indicators appear in both components to indicate activity from beginning to end of the flow.
-+
-image::green-http-listen-request.png[]
-
-Now, you can adapt this flow to dynamically change the URL of a request.
+= how and what rest api's to use for increasing provision thru put quota for a openai instance usecase in apim
 
 
-== See Also
+To increase the **provisioned throughput quota** for an **OpenAI instance** in **Azure API Management (APIM)**, you'll primarily be interacting with **Azure OpenAI Service** quotas and limits, which are tied to the **Azure API Management (APIM)** service. While there isn't a specific API to directly increase **throughput quota** for OpenAI, you can work with two aspects:
 
-* link:/design-center/v/1.0/design-dynamic-request-task[To Dynamically Change the URL of a Request]
-* link:/access-management/environments[CloudHub Environments]
+1. **Azure OpenAI Service limits**
+2. **Azure API Management (APIM) service configurations**
+
+Let’s go step-by-step on how you can manage and increase these quotas.
+
+### 1. **Managing OpenAI Quota via Azure Management API**
+
+Azure OpenAI API uses certain quota and rate limits depending on your subscription, service tier, and the specific resource.
+
+To manage quotas related to **Azure OpenAI**, you need to:
+
+#### Check your current OpenAI quota:
+Before increasing, you may want to confirm your current OpenAI resource quota and limits. Use the **Azure OpenAI Service** API to retrieve quota and usage data.
+
+**API endpoint**:  
+- **List Usage and Quotas**:  
+  ```
+  GET https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CognitiveServices/accounts/{accountName}/usage?api-version=2021-10-01
+  ```
+
+This API gives you information about your current usage limits and quotas, which includes things like throughput and rate limits. Based on that, you can assess if you need to increase your throughput.
+
+#### Increase OpenAI Throughput Quota (if applicable):
+
+If you're on a restricted tier, you'll need to **request an increase** to your OpenAI quota through **Azure Support**. There isn't a direct API for modifying OpenAI throughput quotas. You can go through the Azure portal to request an increase, or alternatively:
+
+- **Azure Support request**: You can submit a support ticket to increase your throughput quota in **Azure** by contacting **Azure support**:
+  - Go to **Azure Portal** → **Help + Support** → **New Support Request** → **Quota increase**.
+
+You will need to select **Azure OpenAI** and provide details about your desired throughput increase.
+
+### 2. **Managing Throughput in Azure API Management (APIM)**
+
+Azure API Management (APIM) controls the **throughput** at the API level. If you're managing the OpenAI instance through **APIM**, you can control rate limits, quotas, and throughput for APIs using the **Azure API Management policies**.
+
+#### Set API Quotas in APIM:
+
+In Azure API Management, you can set rate limits and quotas for an API (including OpenAI integration).
+
+- Use the **Azure REST API** or the **Azure Portal** to configure these policies.
+
+**API Endpoint to update API policies**:
+```
+PUT https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{apimServiceName}/apis/{apiId}/policy?api-version=2021-08-01
+```
+
+**Sample Policy** for setting **rate limits** and **quotas**:
+```xml
+<inbound>
+    <!-- Rate limit the API to 1000 calls per minute -->
+    <rate-limit calls="1000" renewal-period="60" />
+    <!-- Set quota to 5000 calls per day -->
+    <quota calls="5000" period="day" />
+</inbound>
+<outbound>
+    <!-- Optional outbound policies (if required) -->
+</outbound>
+<on-error>
+    <!-- Optional error handling policies -->
+</on-error>
+```
+
+In this case, you can increase the **calls** parameter in the **rate-limit** and **quota** policies depending on your required throughput.
+
+#### Increase APIM Capacity:
+
+If you're hitting throughput limits in **API Management**, you may need to scale your APIM instance to a higher tier, like **Premium** or **Standard**.
+
+**API Endpoint to scale the APIM instance**:
+```
+PUT https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}?api-version=2021-08-01
+```
+
+**Payload to update capacity**:
+```json
+{
+  "properties": {
+    "sku": {
+      "name": "Premium",  // Or another tier like Standard or Developer
+      "capacity": 2  // The desired capacity, depending on how much throughput you need
+    }
+  }
+}
+```
+
+- **Capacity**: This defines the number of **scale units**. Increasing the scale units can handle a larger number of requests per second.
+
+### 3. **Azure CLI or PowerShell**:
+
+You can also use **Azure CLI** or **PowerShell** to scale your **APIM instance** and update quotas:
+
+**Azure CLI**:  
+To update your **APIM tier**:
+```bash
+az apim update --name {apimServiceName} --resource-group {resourceGroup} --sku Premium --capacity 2
+```
+
+**PowerShell**:
+```powershell
+Set-AzApiManagement -ResourceGroupName {resourceGroup} -Name {apimServiceName} -Sku Premium -Capacity 2
+```
+
+### Summary:
+
+To increase the **provisioned throughput quota** for an **OpenAI instance** in Azure API Management:
+1. **Check your OpenAI quota** using the **Azure OpenAI API** and contact Azure Support if needed.
+2. If you're hitting limits in **APIM**, use **API Management policies** to adjust quotas and rate limits.
+3. **Scale the APIM instance** to a higher tier (e.g., Premium) if you need more throughput.
+4. You may need to **request an increase** via **Azure Support** if you're on a restricted tier for **OpenAI**.
+
+Let me know if you need any more help or clarification!
