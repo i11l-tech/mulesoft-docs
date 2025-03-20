@@ -13,6 +13,16 @@ https://github.com/microsoft/AzureOpenAI-with-APIM#tying-it-all-together
 https://techcommunity.microsoft.com/blog/appsonazureblog/calculating-chargebacks-for-business-unitsprojects-utilizing-a-shared-azure-open/3909202
 ------------
 
+Open img - https://medium.com/@loganoop/deploy-azure-ai-services-on-docker-container-534ca5422de5
+
+Az cantiner  https://learn.microsoft.com/en-us/azure/ai-services/cognitive-services-container-support
+
+https://medium.com/@its.me.siddh/dockerize-your-gpt-3-a-guide-to-running-chatgpt-locally-on-your-machine-d5f42d14beb7
+
+-deploy mdl 2 eks https://docs.datarobot.com/en/docs/integrations/aws/deploy-dr-models-on-aws.html
+
+Arm - https://stackoverflow.com/questions/52544314/use-azure-arm-template-to-create-an-aks-cluster-and-deploy-my-kubernetes-applica
+
 
 
 
