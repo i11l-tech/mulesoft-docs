@@ -24,6 +24,7 @@ https://medium.com/@its.me.siddh/dockerize-your-gpt-3-a-guide-to-running-chatgpt
 Arm - https://stackoverflow.com/questions/52544314/use-azure-arm-template-to-create-an-aks-cluster-and-deploy-my-kubernetes-applica
 
 
+https://oxyprogrammer.com/understanding-cqrs-and-event-sourcing-a-path-to-more-robust-distributed-systems
 
 
 import json
