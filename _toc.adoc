@@ -14,7 +14,8 @@ Updating the Read Database: The read service processes the projected event and m
 
 //
 
-Command Service
+==Command Service
+
 The controllers, upon receiving requests, raise a command to the command handler.
 
 Command handlers check the command and call the appropriate API on the event sourcing handler.
@@ -23,7 +24,8 @@ The event sourcing handler interacts with the MongoDB event store, saving an eve
 
 The event producer, an abstraction over the Kafka event bus, is responsible for placing an event in the Kafka stream.
 
-Query Service
+==Query Service
+
 The Query Service includes a listener called EventConsumer, thanks to .NET's Worker Services and AddHostedService. It pulls events from a Kafka topic.
 
 Upon receiving an event, the EventConsumer invokes the appropriate handler in the event handler, which then writes data to PostgreSQL.
