@@ -1,3 +1,39 @@
+
+Let’s iron out the flow for clarity:
+
+The Write Service Receives an Event: This service is responsible for handling incoming commands and generating events.
+
+Writing to the Event Source: The write service records the event in the event store, which is always append-only, meaning there are no delete or update operations.
+
+Publishing to the Event Bus: The write service then publishes a projected event to the event bus. Note that this is a projection of the received event, not the exact event itself.
+
+Listening for Events: The read service, which listens to the event bus, receives the projected event.
+
+Updating the Read Database: The read service processes the projected event and makes the necessary updates in the read database, as this database reflects the final state of the entity.
+
+
+//
+
+Command Service
+The controllers, upon receiving requests, raise a command to the command handler.
+
+Command handlers check the command and call the appropriate API on the event sourcing handler.
+
+The event sourcing handler interacts with the MongoDB event store, saving an event for an aggregate and signaling the event producer to publish an event.
+
+The event producer, an abstraction over the Kafka event bus, is responsible for placing an event in the Kafka stream.
+
+Query Service
+The Query Service includes a listener called EventConsumer, thanks to .NET's Worker Services and AddHostedService. It pulls events from a Kafka topic.
+
+Upon receiving an event, the EventConsumer invokes the appropriate handler in the event handler, which then writes data to PostgreSQL.
+
+The query service handles read requests by delegating queries to the QueryDispatcher (similar to the CommandDispatcher in the command service).
+
+The QueryDispatcher invokes the appropriate handler in the query handler, which reads data from PostgreSQL and serves the requested data.
+
+
+
 // Master TOC
 
 // * link:getting-started[Anypoint Platform Overview]
