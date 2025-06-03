@@ -1,6 +1,18 @@
 = Azure doc
 
+validation only after 12hrs ie if reserv is applied to model, after applied charge will go to reserv
 
+ 
+ calculate - creates reservation order
+ scope: subsciption
+ product: should be provision managed Data Zone
+ region: should match resource region (openai instance)
+ 
+ ptu number & reservation should match
+ 
+ 1st deploy then purchase
+ 
+ spn / oly purchaser can see the purchased prod
 ------------
 https://clemenssiebler.com/posts/sharing-azure-openai-provisioned-throughput-ptu-multiple-use-cases-api-management/
 https://learn.microsoft.com/en-us/rest/api/support/quota-payload
