@@ -2,58 +2,73 @@
 
 
 Business Results Rating: On Track (O)
+
 Self-Assessment Comments
+
 Successfully delivered below projects
-1. Elastic-search-utils library:
-Ramped up on core java & elastic technology to work on the utility library.
-Researched on available elastic search java libraries and used the appropriate library for our use case. Designed and implemented by discussing and delivered it.
-Wrote good amount of unit test cases.
-2. DataBook distribution API
-Learnt Java Spring & companies java environment to implement the API.
-Worked with DataBook team in translating the requirements from existing mule API. Implemented the core functionalities.
-Helped team to enhance the unit test coverage.
-3. Seal Synch Api
-Researched on the new companies SEAL api capabilities
-Worked with Ann/Mike to confirm the requirements & mappings Designed and implemented core functionalities
-Documented the design in confluence
-4. CCB data dictionary module
-Worked with Sameer/Naren in getting the requirements Built it quickly and delivered it on time
-Enhanced the caching options
-5. LDS application module API
-Studied the SEAL/Asset-catalog api and analysed the requirements. Worked with Marlon for getting the fields mapped correctly Designed, Implemented and deployed to production on time
-6 Ramping up on Data Use project and refactored a workflow.
+
+=1. Elastic-search-utils library:
+--Ramped up on core java & elastic technology to work on the utility library.
+--Researched on available elastic search java libraries and used the appropriate library for our use case. Designed and implemented by discussing and delivered it.
+--Wrote good amount of unit test cases.
+
+=2. DataBook distribution API
+--Learnt Java Spring & companies java environment to implement the API.
+--Worked with DataBook team in translating the requirements from existing mule API. Implemented the core functionalities.
+--Helped team to enhance the unit test coverage.
+
+=3. Seal Synch Api
+--Researched on the new companies SEAL api capabilities
+--Worked with Ann/Mike to confirm the requirements & mappings Designed and implemented core functionalities
+--Documented the design in confluence
+
+=4. CCB data dictionary module
+--Worked with Sameer/Naren in getting the requirements Built it quickly and delivered it on time
+--Enhanced the caching options
+
+=5. LDS application module API
+--Studied the SEAL/Asset-catalog api and analysed the requirements. Worked with Marlon for getting the fields mapped correctly Designed, Implemented and deployed to production on time
+
+=6 Ramping up on Data Use project and refactored a workflow.
 
 
-   Manager Commentscompanies
-Santosh has delivered multiple features this year. Because of the technology change, Santosh has experienced some learning curve in the first couple months when he started working on the glossary API. After the learning period, he has demonstrated good velocity in delivering new features.
+ ==  Manager Commentscompanies
+-Santosh has delivered multiple features this year. Because of the technology change, Santosh has experienced some learning curve in the first couple months when he started working on the glossary API. After the learning period, he has demonstrated good velocity in delivering new features.
 As a VP level engineer, Santosh should more proactively drive the feature design and implementation. For every new feature, Santosh should spend sometime time thinking how this feature fits into the whole product and how this feature should be designed.
 
 
-Client / Customer / Stakeholder Rating: On Track (O)
-Self-Assessment Comments
-Built a POC initially using GraphQL to check its viability for DataBook API.
-Worked with DataBook team in analyzing the API requirements and helped create mapping document.
-Worked with SEAL API team in getting the api/environment details.
-Helped scrum masters in understanding the requirements and aid process implementation.
+=Client / Customer / Stakeholder Rating: On Track (O)
 
-Manager Comments
-Santosh's contribution to DataBook features directly attributes to client's direct success. Next year, we will find more opportunities for Santosh to directly interact with clients.
+=Self-Assessment Comments
 
-Teamwork and Leadership Rating: Growth Area (G)
-Self-Assessment Comments
-Worked with Gobi & Hari in resolving issues and understanding the requirements, also offered suggestions in coding improvements.
-Partnered with Arti to get Collibra certification.(Since the certification got deprecated we will resume with the new content)
-Helped Srini & Devops team in production deployments.
-Mentored Gobi & Hari on writing modular code and unit testing.
-Manager Comments
-Santosh collaborated within and outside the team well. He is willing to help other team members when they request help. However, I'd like to see Santosh take a more proactive position, and really drive the conversation and technical decisions.
+--Built a POC initially using GraphQL to check its viability for DataBook API.
+--Worked with DataBook team in analyzing the API requirements and helped create mapping document.
+--Worked with SEAL API team in getting the api/environment details.
+--Helped scrum masters in understanding the requirements and aid process implementation.
+
+=Manager Comments
+==Santosh's contribution to DataBook features directly attributes to client's direct success. Next year, we will find more opportunities for Santosh to directly interact with clients.
+
+==Teamwork and Leadership Rating: Growth Area (G)
+
+==Self-Assessment Comments
+
+--Worked with Gobi & Hari in resolving issues and understanding the requirements, also offered suggestions in coding improvements.
+--Partnered with Arti to get Collibra certification.(Since the certification got deprecated we will resume with the new content)
+--Helped Srini & Devops team in production deployments.
+--Mentored Gobi & Hari on writing modular code and unit testing.
+
+=Manager Comments
+--Santosh collaborated within and outside the team well. He is willing to help other team members when they request help. However, I'd like to see Santosh take a more proactive position, and really drive the conversation and technical decisions.
 
  
-Self-Assessment Comments
-2020 has been a lot of change in working tools & technologies. I have successfully adapted to change in environments. Built a host of useful API's collaborating with the team. I will continue to add more value by going more in depth in data governance domain and also in the required technologies. Also work on improving leadership and collaboration skills.
+=Self-Assessment Comments
 
-Manager Comments
-Santosh has adjusted to new team and technology well in the past year. He picked up Java quickly and delivered multiple features afterwards. He definitely put a lot of effort for this adjustment, especially during the global pandemic period.
+-2020 has been a lot of change in working tools & technologies. I have successfully adapted to change in environments. Built a host of useful API's collaborating with the team. I will continue to add more value by going more in depth in data governance domain and also in the required technologies. Also work on improving leadership and collaboration skills.
+
+=Manager Comments
+
+-Santosh has adjusted to new team and technology well in the past year. He picked up Java quickly and delivered multiple features afterwards. He definitely put a lot of effort for this adjustment, especially during the global pandemic period.
 In the new year, I am looking forward for Santosh continue growing the technical depth, holding the engineering practice bar for more junior engineers, and working on the technical leadership skills.
 
 
