@@ -1,69 +1,26 @@
 https://techcommunity.microsoft.com/blog/azuretoolsblog/announcing-public-preview-of-terraform-export-from-the-azure-portal/4409889
 
+conducted reqr gathering, data mappings, designing and mainting enterprices application 
 
-LifeDojo / New York / Sr Software Engineer / June 2017 –  Dec 2017
-Environment: JavaScript, React.js, Redux, Material-UI, CSS, HTML, GIT, Webpack.
-	•	Implemented the Coach-Coachee communication modules.
-	•	Used Twilio cloud api to develop the chat widgets. 
-	•	Implemented middleware module for token management.
-	•	Integrated the legacy Coach admin module into the new app.
-	•	Refactored the user accounts pages which used the Backbone library.
-	•	Interacted with stakeholders to get the requirements and built the new responsive version of the app.
-	•	Coordinated with offshore team to get the UI assets implemented.
+developed reporting solutions based on the needs of .. identifying x inovative ways to 
 
-Macmillan Learning / New York / Sr Software Consultant / April 2014 –  March 2017
-Environment: JavaScript, React.js, JQuery, CSS, HTML, GIT, Gulp, Jasmine, Karma.
-	•	Designed and developed generic and accessibility compliant widgets for the Next-Gen application. 
-	•	Implemented the Table-Of-Content widget used in the content home page, which is built dynamically after parsing the JSON data returned from a service API.
-	•	Designed and developed a generic data store REST API using Mongodb and Node.js
-	•	Implemented the SCORM standard based Assessment UI module for Macmillan's flag ship LMS product which consisted of Quiz settings & assignment module, Questions creation/editing module.
-	•	Interfaced with the backend API to store and retrieve data, which is derived from Agilix a third party vendor.
-	•	Successfully converted all ASP.NET Razor templates to single page app using React.js
-	•	Analysis of critical production issues using tools like New-Reliq, Splunk, Chrome Dev tools, Fiddler and internal test & debugging tools.
+created an e2e sol for etl process monitoring using 
 
-Echo  / New York / Solutions Engineer / May 2013 –  April 2014
-Environment: JavaScript, JQuery, CSS, HTML, GIT.
-	•	Worked with cross-functional teams to guide the development and presentation of social solutions that drive client business.
-	•	Assisted CNN to build a proprietary login system for Echo’s apps using BackPlane protocol.
-	•	Built web pages using core Echo api with RealTime stream of user’s Social Media posts for clients like WWE, DirectTV, Rockettes, iVillage etc.
+automated etl process across a high volume of data which reduced the manual workload
 
-Audible Inc. / New York / Sr Software Consultant / Jul 2011 –  Feb 2013 
-Environment: JavaScript, JQuery, Java, JSTL, Selenium, Spring, Hibernate, TestNG.
-	•	Ported the Audible German site from the old Broad-vision based e-commerce portal to Amazon’s e-commerce web portal on Santana platform.
-	•	Created various reusable pagelets used in the Audible German site. 
-	•	Developed test cases using Selenium and TestNG for build verification step of the continuous build process. 
+collborated with tech profesionals including product & data science teams ...on idea generation, implementation, testing & success msrmnt
 
+developed a key data ppln to process 5tb of dt by consolidating from multiple disparate srcs into single dest, enabling quick data analysis for reliable biz insights
 
-Time Inc. / New York / Sr Software Consultant / Mar 2011 – Jul 2011 
-Environment : Java, JavaScript, Spring, Hibernate, Oracle, Maven
-	•	Designed and developed the subscriptions module using  Java and Spring framework.
+implemented best practise process & created cloud functions, applications & db that have improved data accuracy for decision making by 35%
 
-Conde Nast Digital. / New York  / Sr Software Consultant / Jan 2010 – Feb 2011
-Environment: JavaScript , JSP, XML, XSL, XSD, CSS, Java, Spring, Hibernate, Groovy, Oracle
-	•	Involved in design and development of the presentation layer for Conde-Nast magazines.
-	•	Leveraged Spring MVC/DI/AOP and Spring DAO in various application modules.
+built tableau dashboard to vizualise core biz kpis 
 
-Common Need, Inc. / New York / Sr Software Consultant / June 2009 – Jan 2010
-Environment: Groovy & Grails, JavaScript, GWT, CSS, JQuery, My SQL
-	•	Built UI modules for the social network based educational product.    
-	•	Automated functional testing using selenium plug-in.
+aggregated unstructured data from 20+ sources to build the foundation of
 
-Blank Slate Factory, Inc. / New York / Sr Software Consultant  / June 2008 – May 2009
-Environment: Java, Spring, Hibernate, Acegi  (Spring) Security,  SVN, My SQL, JavaScript , JSP, XML 
-	•	Developed enterprise-grade web application from the ground up using leading open source technologies in a highly agile environment. 
-	•	Responsible for all the core algorithms for schema independence, data type mapping, data transformation which are the main pillars of the product using Java, Hibernate and Spring. 
+designed the data ppline archit 
 
-Hillcrest Labs / Maryland / Software Consultant through MindTree / Nov 2006 - Dec 2007
-Environment: Java, J2ME, J2EE, JMS, Linux, Oracle 9i, JBoss, XML, JavaScript, Test Director.
-	•	Involved in analysis of business requirements and convey the design to the offshore team. 
-	•	Developed UI modules for the digital home navigation system. 
-
-MindTree Consulting / Bangalore / Sr Software Engineer / Feb 2004  - Oct 2006
-Clients: Cisco, Texas Instruments	
-Environment: Java, J2EE, EJB, JDBC, Servlets, JSP, JSTL, Struts, Perl, JavaScript, XML, JMS, J2ME, Oracle 8i, Web Services (SOAP and WSDL)
-	•	Worked on Network Management System projects using Java technologies.   
-
-
+led the transistion to a paperless practise by implmenting an electroic booking system & a faster & more accurate biz sys, reduced cost of labor & office overhead by 10%
 
 ------------
 https://clemenssiebler.com/posts/sharing-azure-openai-provisioned-throughput-ptu-multiple-use-cases-api-management/
